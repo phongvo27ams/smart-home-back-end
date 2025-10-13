@@ -1,0 +1,757 @@
+{
+	"info": {
+		"_postman_id": "416873a2-ef78-4a4c-86a5-f57d371468b8",
+		"name": "smart-home-back-end",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26803427"
+	},
+	"item": [
+		{
+			"name": "Auth: Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"user01\",\r\n  \"password\": \"user01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User: Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"user01\",\r\n  \"password\": \"user01\",\r\n  \"first_name\": \"User 01\",\r\n  \"last_name\": \"V\",\r\n  \"email\": \"user01@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User: Get All Users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIwMSIsInN1YiI6MSwiaWF0IjoxNzYwMzIyNTI2LCJleHAiOjE3NjAzMjYxMjZ9.t7gUSTzLwXfPqagycnUg7ru3QzDAqS8exmSGP2--pIA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/users/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device: Create A Device",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIwMSIsInN1YiI6MSwiaWF0IjoxNzYwMzIyNjEyLCJleHAiOjE3NjAzMjYyMTJ9._jMnNqgbjrpnJDLv7LU18y1BgB9577R5jTyGmm3WpwY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Living Room Light 2\",\r\n  \"type\": \"light\",\r\n  \"description\": \"Panasonic LED Light MG-540 Series\",\r\n  \"powerValue\": 20,\r\n  \"priority\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/devices",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device: Get All Devices",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIwMSIsInN1YiI6MSwiaWF0IjoxNzYwMzI2MjcxLCJleHAiOjE3NjAzMjk4NzF9.NV_Ysp2wgr8NkWK3msa423Z5PsAPFThMZy1vToW8CLc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Living Room Light\",\r\n  \"type\": \"light\",\r\n  \"description\": \"Philips LED 80W\",\r\n  \"priority\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/devices",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device: Get A Device",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJzdWIiOjEsImlhdCI6MTc2MDEwNTQ1MiwiZXhwIjoxNzYwMTA5MDUyfQ.1l4aj5GPF0giwZvG40kE2a85lxzBmxKWjhpVKat9us8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Living Room Light\",\r\n  \"type\": \"light\",\r\n  \"description\": \"Philips LED 80W\",\r\n  \"priority\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/devices/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"devices",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device: Update A Device",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJpYXQiOjE3NTk4MTYzNzgsImV4cCI6MTc1OTgxOTk3OH0.cUdrwN5zBwbHQoMaVnbxClku_bhcAXft5yo68v2a-7Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Living Room Fan\",\r\n  \"type\": \"fan\",\r\n  \"description\": \"Philips Fan 5000 Series 70W\",\r\n  \"priority\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/devices/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"devices",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device: Toggle A Device",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIwMSIsInN1YiI6MSwiaWF0IjoxNzYwMzI5OTIxLCJleHAiOjE3NjAzMzM1MjF9.GhKCKMyBqaYJ3sRKkV4QFsE5GqCDE-WPZ1GV7qdCv_w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/devices/1/toggle",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"devices",
+						"1",
+						"toggle"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device: Delete A Device",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJpYXQiOjE3NTk4MTYzNzgsImV4cCI6MTc1OTgxOTk3OH0.cUdrwN5zBwbHQoMaVnbxClku_bhcAXft5yo68v2a-7Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Living Room Fan\",\r\n  \"type\": \"fan\",\r\n  \"description\": \"Philips Fan 5000 Series 70W\",\r\n  \"priority\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/devices/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"devices",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sensor: Create A Sensor",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIwMSIsInN1YiI6MSwiaWF0IjoxNzYwMzIzMDAyLCJleHAiOjE3NjAzMjY2MDJ9.S_yixN-Rq4UHhrSacpywxowU0qyA3V1S5uFsLyVgB_g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Living Room Temperature\",\r\n  \"type\": \"temperature\",\r\n  \"deviceId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/sensors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sensors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sensor: Get All Sensors",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIwMSIsInN1YiI6MSwiaWF0IjoxNzYwMzI2MjcxLCJleHAiOjE3NjAzMjk4NzF9.NV_Ysp2wgr8NkWK3msa423Z5PsAPFThMZy1vToW8CLc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/sensors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sensors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sensor: Get A Sensor",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJpYXQiOjE3NTk4MTYzNzgsImV4cCI6MTc1OTgxOTk3OH0.cUdrwN5zBwbHQoMaVnbxClku_bhcAXft5yo68v2a-7Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/sensors/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sensors",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sensor: Update A Sensor",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIwMSIsInN1YiI6MSwiaWF0IjoxNzYwMzIzMDAyLCJleHAiOjE3NjAzMjY2MDJ9.S_yixN-Rq4UHhrSacpywxowU0qyA3V1S5uFsLyVgB_g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Living Room Light Sensor\",\r\n  \"type\": \"light\",\r\n  \"deviceId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/sensors/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sensors",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sensor: Update A Sensor Value",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIwMSIsInN1YiI6MSwiaWF0IjoxNzYwMzI5OTIxLCJleHAiOjE3NjAzMzM1MjF9.GhKCKMyBqaYJ3sRKkV4QFsE5GqCDE-WPZ1GV7qdCv_w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"value\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/sensors/1/value",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sensors",
+						"1",
+						"value"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sensor: Delete A Sensor",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJpYXQiOjE3NTk4MTYzNzgsImV4cCI6MTc1OTgxOTk3OH0.cUdrwN5zBwbHQoMaVnbxClku_bhcAXft5yo68v2a-7Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/sensors/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sensors",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Energy Consumption: Create A Record",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJpYXQiOjE3NTk4MjAzMTIsImV4cCI6MTc1OTgyMzkxMn0.OQUsdZsDtJiyvkL6na6eYdba1b93segafsYPY3LIgL4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"deviceId\": 1,\r\n  \"power_value\": 200\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/energy-consumptions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"energy-consumptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Energy Consumption: Get All Records",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJzdWIiOjEsImlhdCI6MTc2MDEwNTQ1MiwiZXhwIjoxNzYwMTA5MDUyfQ.1l4aj5GPF0giwZvG40kE2a85lxzBmxKWjhpVKat9us8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"deviceId\": 1,\r\n  \"power_value\": 120,\r\n  \"total_power\": 2.5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/energy-consumptions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"energy-consumptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Energy Consumption: Get A Record",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJpYXQiOjE3NTk4MjAzMTIsImV4cCI6MTc1OTgyMzkxMn0.OQUsdZsDtJiyvkL6na6eYdba1b93segafsYPY3LIgL4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"deviceId\": 1,\r\n  \"power_value\": 120,\r\n  \"total_power\": 2.5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/energy-consumptions/device/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"energy-consumptions",
+						"device",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Energy Consumption: Get Total Power",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4iLCJzdWIiOjEsImlhdCI6MTc2MDEwNTQ1MiwiZXhwIjoxNzYwMTA5MDUyfQ.1l4aj5GPF0giwZvG40kE2a85lxzBmxKWjhpVKat9us8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"deviceId\": 1,\r\n  \"power_value\": 120,\r\n  \"total_power\": 2.5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/energy-consumptions/total",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"energy-consumptions",
+						"total"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Relay Control: Get Records",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIwMSIsInN1YiI6MSwiaWF0IjoxNzYwMzI5OTIxLCJleHAiOjE3NjAzMzM1MjF9.GhKCKMyBqaYJ3sRKkV4QFsE5GqCDE-WPZ1GV7qdCv_w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/relay-controls",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"relay-controls"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Relay Control: Get A Device Record",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIwMSIsInN1YiI6MSwiaWF0IjoxNzYwMzIzMDAyLCJleHAiOjE3NjAzMjY2MDJ9.S_yixN-Rq4UHhrSacpywxowU0qyA3V1S5uFsLyVgB_g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/relay-controls/device/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"relay-controls",
+						"device",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

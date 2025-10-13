@@ -9,7 +9,7 @@ export class CreateRelayControlDto {
 
   @IsOptional()
   @IsInt()
-  userId?: number;
+  userId?: number | null; // Allow null when the system automatically shuts down the device
 
   @IsOptional()
   @IsBoolean()

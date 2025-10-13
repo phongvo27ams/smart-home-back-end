@@ -1,19 +1,23 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Sensor } from './sensor.entity';
 import { CreateSensorDto } from './dto/create-sensor.dto';
 import { UpdateSensorDto } from './dto/update-sensor.dto';
 import { DeviceService } from '../device/device.service';
+import { RelayControlService } from 'src/relay-control/relay-control.service';
 import { Device } from '../device/device.entity';
 
 @Injectable()
 export class SensorService {
   constructor(
     @InjectRepository(Sensor)
-    private readonly sensorRepo: Repository<Sensor>,
+    private readonly sensorRepository: Repository<Sensor>,
 
     private readonly deviceService: DeviceService,
+
+    @Inject(forwardRef(() => RelayControlService))
+    private readonly relayControlService: RelayControlService,
   ) { }
 
   async create(dto: CreateSensorDto): Promise<Sensor> {
@@ -26,22 +30,22 @@ export class SensorService {
       throw new NotFoundException(`Device #${dto.deviceId} not found`);
     }
 
-    const sensor = this.sensorRepo.create({
+    const sensor = this.sensorRepository.create({
       name: dto.name,
       type: dto.type,
       value: dto.value ?? 0,
       device,
     });
 
-    return await this.sensorRepo.save(sensor);
+    return await this.sensorRepository.save(sensor);
   }
 
   async findAll(): Promise<Sensor[]> {
-    return await this.sensorRepo.find({ relations: ['device'] });
+    return await this.sensorRepository.find({ relations: ['device'] });
   }
 
   async findOne(id: number): Promise<Sensor> {
-    const sensor = await this.sensorRepo.findOne({
+    const sensor = await this.sensorRepository.findOne({
       where: { id },
       relations: ['device'],
     });
@@ -62,17 +66,40 @@ export class SensorService {
     }
 
     Object.assign(sensor, dto);
-    return await this.sensorRepo.save(sensor);
+    return await this.sensorRepository.save(sensor);
   }
 
   async remove(id: number): Promise<void> {
     const sensor = await this.findOne(id);
-    await this.sensorRepo.remove(sensor);
+    await this.sensorRepository.remove(sensor);
   }
 
   async updateValue(id: number, value: number): Promise<Sensor> {
     const sensor = await this.findOne(id);
     sensor.value = value;
-    return await this.sensorRepo.save(sensor);
+
+    // Save new sensor value
+    await this.sensorRepository.save(sensor);
+
+    // Get current device (avoid cache)
+    const device = await this.deviceService.findOne(sensor.device.id);
+
+    // Check the device status
+    if (value === 0 && device.isOn) {
+      await this.deviceService.toggleDevice(device.id, undefined);
+
+      // Record in Relay Control
+      await this.relayControlService.create({
+        deviceId: device.id,
+        action: 'OFF',
+        isAutomatic: true,
+        userId: undefined,
+      });
+    }
+
+    // Reload the sensor value
+    const reloadedSensor = await this.findOne(id);
+    return reloadedSensor;
   }
+
 }

@@ -1,6 +1,8 @@
 import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { MqttService } from '../mqtt/mqtt.service';
+
 import { Repository } from 'typeorm';
 
 import { Device } from './device.entity';
@@ -15,9 +17,11 @@ export class DeviceService {
   constructor(
     @InjectRepository(Device)
     private deviceRepository: Repository<Device>,
-    
+
     @Inject(forwardRef(() => RelayControlService))
     private relayControlService: RelayControlService,
+
+    private readonly mqttService: MqttService,
   ) { }
 
   async create(createDeviceDto: CreateDeviceDto): Promise<Device> {
@@ -58,6 +62,15 @@ export class DeviceService {
       action: device.isOn ? 'ON' : 'OFF',
       isAutomatic: false,
     });
+
+    // Send MQTT commands to Ohstem server
+    if (device.mqttTopic) {
+      const message = device.isOn ? '1' : '0';
+      this.mqttService.publish(device.mqttTopic, message);
+      console.log(`MQTT: Sent ${message} to ${device.mqttTopic}`);
+    } else {
+      console.warn(`Device ${device.id} (${device.name}) has no MQTT topic defined.`);
+    }
 
     return device;
   }

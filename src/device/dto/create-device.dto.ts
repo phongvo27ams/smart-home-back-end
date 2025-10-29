@@ -9,6 +9,10 @@ export class CreateDeviceDto {
   @IsString()
   type: string;
 
+  @IsNotEmpty()
+  @IsString()
+  mqttTopic: string;
+
   @IsOptional()
   @IsBoolean()
   isOn?: boolean;

@@ -11,6 +11,9 @@ export class Device {
   @Column()
   type: string;
 
+  @Column()
+  mqttTopic: string;
+
   @Column({ default: false })
   isOn: boolean;
 

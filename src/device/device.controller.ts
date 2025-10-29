@@ -9,6 +9,8 @@ import {
   Request,
   UseGuards,
   ParseIntPipe,
+  NotFoundException,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { DeviceService } from './device.service';
@@ -63,11 +65,33 @@ export class DeviceController {
   @Post(':id/toggle')
   async toggle(@Param('id', ParseIntPipe) id: number, @Request() req) {
     const userId = req.user?.userId;
-    const updatedDevice = await this.deviceService.toggleDevice(id, userId);
-    return {
-      message: 'Device toggled successfully',
-      data: updatedDevice,
-    };
+
+    try {
+      const updatedDevice = await this.deviceService.toggleDevice(id, userId);
+
+      // If the device does not have an MQTT topic yet
+      if (!updatedDevice.mqttTopic) {
+        throw new NotFoundException(
+          `Device #${id} (${updatedDevice.name}) does not have an MQTT topic.`,
+        );
+      }
+
+      return {
+        success: true,
+        message: `Device "${updatedDevice.name}" toggled ${updatedDevice.isOn ? 'ON' : 'OFF'} successfully`,
+        data: {
+          id: updatedDevice.id,
+          name: updatedDevice.name,
+          isOn: updatedDevice.isOn,
+          mqttTopic: updatedDevice.mqttTopic,
+        },
+      };
+    } catch (error) {
+      console.error('Error toggling device:', error);
+      throw new InternalServerErrorException(
+        `Failed to toggle device #${id}: ${error.message}`,
+      );
+    }
   }
 
   @Delete(':id')

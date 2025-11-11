@@ -8,6 +8,7 @@ import { EnergyConsumptionModule } from './energy-consumption/energy-consumption
 import { RelayControlModule } from './relay-control/relay-control.module';
 import { SensorModule } from './sensor/sensor.module';
 import { UserModule } from './user/user.module';
+import { MqttModule } from './mqtt/mqtt.module';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { UserModule } from './user/user.module';
     EnergyConsumptionModule,
     RelayControlModule,
     SensorModule,
-    UserModule
+    UserModule,
+    MqttModule,
   ]
 })
 
